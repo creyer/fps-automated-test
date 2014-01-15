@@ -1,3 +1,4 @@
+src/features/perf_util.py
 *.py[cod]
 
 # C extensions
