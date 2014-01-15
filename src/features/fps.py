@@ -113,15 +113,22 @@ def scroll(step, times):
         for li in range(0, elems[div]):
             element_to_hover_over = world.driver.find_element_by_id("ul_scroll_%d_%d" % (div,li))
             li_hover[div].append(element_to_hover_over)
+    world.elems = elems
+    world.li_hover = li_hover
     
-    #start logging
-    world.driver.execute_script('insertIntoFpsArr = true');
-    for div in range (0,predifined['number_of_widgets']):
-        for li in range(0, elems[div]):
-            ActionChains(world.driver).move_to_element(li_hover[div][li]).perform()
 
 @step(u'And I scroll again to extract the fps values')
 def fps_values(step):
+    elems = world.elems
+    li_hover = world.li_hover
+    #start logging the fps values
+    world.driver.execute_script('insertIntoFpsArr = true');
+    for div in range (0,predifined['number_of_widgets']):
+        for li in range(0, elems[div]-1):
+            ActionChains(world.driver).move_to_element(li_hover[div][li]).perform()
+            #add a minimum sleep give time to perform
+            time.sleep(0.05)
+    #read the fps values    
     world.fps_values = world.driver.execute_script("return fps_arr")
 
 
@@ -131,6 +138,7 @@ def avarage_lookup(step,avg):
     std = numpy.std(world.fps_values)   
     logging.info("numpy mean: %d ,std: %d" % (mean,std))
     logging.info("values are: %s " % (world.fps_values))
+    #world.driver.close()
     assert mean > avg
 
 
