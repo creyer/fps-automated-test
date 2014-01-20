@@ -16,22 +16,38 @@ import time
 import logging
 import numpy
 from perf_util import predifined 
+from selenium.webdriver.chrome.options import Options
 
-logging.basicConfig(filename='perf.log',level=logging.INFO)
 
 
 @before.all
-def setup_browser():
-    logging.info("Start new test with Firefox")  
-    world.driver = webdriver.Firefox()
-    world.driver.maximize_window()
+def setup_():
+    logging.basicConfig(filename='perf.log',level=logging.INFO)
     
 
-@step(u'Given I have initial setup')
-def parse_params_of_argv(step):
+@step(u'Given I have initial setup: ([^"]*)')
+def parse_params_of_argv(step, browser):
     #add here any other setup you want
-    pass    
-    
+    if (browser.lower() == "chrome"):
+        logging.info("Start new test with Chrome")
+        chromedriver = "/home/creyer/Downloads/chromedriver"
+        options = webdriver.ChromeOptions()
+        options.add_argument('--new-window ')
+        options.add_argument('--enable-high-resolution-time')
+        options.add_argument('--memory-widget')
+        options.add_argument('--start-maximized')
+        options.add_argument("--show-fps-counter=true")
+        world.driver = webdriver.Chrome(executable_path = chromedriver, \
+            chrome_options = options)
+        
+    elif (browser.lower() == "firefox"):
+        world.driver = webdriver.Firefox()
+        world.driver.maximize_window()
+        logging.info("Start new test with Firefox")
+        
+    else:
+       logging.info("Unsupported browser: %s" % (browser))
+       raise Exception("Unsupported browser: %s" % (browser))
 
 @step(u'When I go to login page')
 def given_i_go_to_loginpage(step):
@@ -40,6 +56,7 @@ def given_i_go_to_loginpage(step):
 
 @step(u'And I fill in the credentials fields "([^"]*)" "([^"]*)"')
 def input_user(step, id1,id2):
+    world.driver.execute_script('console.timeline()')
     el = world.driver.find_element_by_id(id1)
     el.send_keys(predifined[id1])
     el = world.driver.find_element_by_id(id2)
@@ -130,7 +147,7 @@ def fps_values(step):
             #add a minimum sleep give time to perform
             sleep += 1
             if sleep % 3 == 1:
-                time.sleep(0.1)
+                time.sleep(0.3)
     #read the fps values    
     world.fps_values = world.driver.execute_script("return fps_arr")
 
