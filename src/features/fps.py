@@ -1,6 +1,6 @@
 # Please consider the following:
 # 1. This script needs to be changed in order to satisfy your html
-#    please modify the @step(u'And I start scrolling (\d+) times')
+#    please modify the @step(u'And I scroll (\d+) times to ensure data is loaded')
 # 2. This script is build to acomodate a page with multiple scrolling
 #    elements and with eventually ajax loading
 # 3. In order to work, the opened browser page should be keep maximized
@@ -30,13 +30,12 @@ def parse_params_of_argv(step, browser):
     #add here any other setup you want
     if (browser.lower() == "chrome"):
         logging.info("Start new test with Chrome")
-        chromedriver = "/home/creyer/Downloads/chromedriver"
+        chromedriver = predifined['chromedriver']
         options = webdriver.ChromeOptions()
-        options.add_argument('--new-window ')
-        options.add_argument('--enable-high-resolution-time')
-        options.add_argument('--memory-widget')
         options.add_argument('--start-maximized')
-        options.add_argument("--show-fps-counter=true")
+        # next line it can be used together with setting the javascript 
+        # value of useHighAnimation to true, for debug purpose only
+        # options.add_argument("--show-fps-counter=true")
         world.driver = webdriver.Chrome(executable_path = chromedriver, \
             chrome_options = options)
         
@@ -144,7 +143,9 @@ def fps_values(step):
     for div in range (0,predifined['number_of_widgets']):
         for li in range(0, elems[div]-1):
             ActionChains(world.driver).move_to_element(li_hover[div][li]).perform()
-            #add a minimum sleep give time to perform
+            # add a minimum sleep give time to perform
+            # here is a trial mimic of a normal user which actualy has 
+            # a small pause between scrols
             sleep += 1
             if sleep % 3 == 1:
                 time.sleep(0.3)
