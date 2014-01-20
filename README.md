@@ -30,6 +30,9 @@ Before run:
 * Please make sure you have all the reuired dependencies installed:
 * Also please insert all the values inside: perf_util.py
 
+How to run it:
+===
+After you have made the changes required to match your page, you can run it with the `lettuce` command in the src folder.
 
 Thanks:
 ===
