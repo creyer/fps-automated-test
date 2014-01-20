@@ -2,7 +2,7 @@ Feature: Fps avarage
     In order to have a nice user experience 
     the fps on the page should be over 25
 Scenario: Visit a page and extract the fps when scrolling
-Given I have initial setup: Firefox
+Given I have initial setup: Chrome
      When I go to login page
      And I insert the fps javascript
      And I fill in the credentials fields "id_username" "id_password"

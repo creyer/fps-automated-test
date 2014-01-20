@@ -148,6 +148,11 @@ def fps_values(step):
             sleep += 1
             if sleep % 3 == 1:
                 time.sleep(0.3)
+                world.driver.execute_script('document.getElementsByClassName\
+                    ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
+                    [0].getElementsByTagName("ul")[0].scrollTop = document.getElementsByClassName\
+                    ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
+                    [0].getElementsByTagName("ul")[0].scrollTop + 20 ' % (div, div))
     #read the fps values    
     world.fps_values = world.driver.execute_script("return fps_arr")
 
@@ -156,10 +161,11 @@ def fps_values(step):
 def avarage_lookup(step,avg):
     mean = numpy.mean(world.fps_values)    
     std = numpy.std(world.fps_values)   
-    #std could be check to ensure we don't have a large spread data
+    # std could be check to ensure we don't have a large spread data
+    # but Firefox has a much larger value the Chrome for std 
     logging.info("numpy mean: %s ,std: %s" % (mean,std))
     logging.info("values are: %s " % (world.fps_values))
-    #world.driver.close()
+    world.driver.close()
     assert mean > int(avg)
 
 
