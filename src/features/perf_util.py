@@ -19,4 +19,7 @@ predifined['number_of_widgets'] = 2
 #define the step you wish to perform the initial scroll
 predifined['scroll_step'] = 100 # this is the number of px
 
+#define the path to your chromedriver
+predifined['chromedriver'] = ""
+
 # TODO create remote javascript
