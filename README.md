@@ -2,6 +2,8 @@ fps-automated-test
 ==================
 
 Calculates in an automated way, with selenium, the frames per second for an html page.
+It uses the javascript requestAnimFrame, in order to calculate the framerate variation.
+Please refer to the file: src/javascript/README.md for more insight on the javascript part
 
 Disclaimer
 ==================
@@ -31,6 +33,6 @@ Before run:
 
 Thanks:
 ===
-The javascript is based on the original work of mrdoob: https://github.com/mrdoob/stats.js 
+The javascript is inspired from the original work of mrdoob: https://github.com/mrdoob/stats.js 
 
 Many thanks
