@@ -34,6 +34,12 @@ How to run it:
 ===
 After you have made the changes required to match your page, you can run it with the `lettuce` command in the src folder.
 
+Case study:
+===
+Twitter -> look into the example folder to see how the script is modified to check the Twitter performace.
+
+Running the script, you will not see any degradation in performace between 100 and 500 scrols, because there is none.
+
 Thanks:
 ===
 The javascript is inspired from the original work of mrdoob: https://github.com/mrdoob/stats.js 
