@@ -11,7 +11,7 @@ The extracted fps values are not the same as the ones you may experience during 
 
 Never the less the extracted values are a good measure as long they satisfy the following principles:
 * the extracted values are consistent - we have the same mean and the same std deviation between different runs with the same input
-* it shows a degarding in performance under the same input as when a normal user experiences the same 
+* it shows a degarding in performance under the same input as when a normal user experiences the same
 
 The performance is consitent and could vary more or less from what a normal user is experiencing but still it will be a variation in the same direction
 
@@ -24,7 +24,7 @@ Requirements:
 * selenium
 * lettuce
 * numpy
- 
+
 Before run:
 ===
 * Please make sure you have all the reuired dependencies installed:
@@ -42,6 +42,6 @@ Running the script, you will not see any degradation in performace between 100 a
 
 Thanks:
 ===
-The javascript is inspired from the original work of mrdoob: https://github.com/mrdoob/stats.js 
+The javascript is inspired from the original work of mrdoob: https://github.com/mrdoob/stats.js
 
 Many thanks

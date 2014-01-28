@@ -1,7 +1,7 @@
 # Please modify this file in order to match your need
 
 predifined = {}
-predifined['id_username'] = "user" 
+predifined['id_username'] = "user"
 predifined['id_password'] = "pass"
 
 # define local javascript for loading the file from local

@@ -1,6 +1,6 @@
 predifined = {}
 #we test the page without the log in
-predifined['id_username'] = "" 
+predifined['id_username'] = ""
 predifined['id_password'] = ""
 # define the login page
 predifined['login_url'] = ""

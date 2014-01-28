@@ -15,7 +15,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 import logging
 import numpy
-from perf_util import predifined 
+from perf_util import predifined
 from selenium.webdriver.chrome.options import Options
 
 
@@ -23,7 +23,7 @@ from selenium.webdriver.chrome.options import Options
 @before.all
 def setup_():
     logging.basicConfig(filename='perf.log',level=logging.INFO)
-    
+
 
 @step(u'Given I have initial setup: ([^"]*)')
 def parse_params_of_argv(step, browser):
@@ -33,24 +33,24 @@ def parse_params_of_argv(step, browser):
         chromedriver = predifined['chromedriver']
         options = webdriver.ChromeOptions()
         options.add_argument('--start-maximized')
-        # next line it can be used together with setting the javascript 
+        # next line it can be used together with setting the javascript
         # value of useHighAnimation to true, for debug purpose only
         # options.add_argument("--show-fps-counter=true")
         world.driver = webdriver.Chrome(executable_path = chromedriver, \
             chrome_options = options)
-        
+
     elif (browser.lower() == "firefox"):
         world.driver = webdriver.Firefox()
         world.driver.maximize_window()
         logging.info("Start new test with Firefox")
-        
+
     else:
        logging.info("Unsupported browser: %s" % (browser))
        raise Exception("Unsupported browser: %s" % (browser))
 
 @step(u'When I go to login page')
 def given_i_go_to_loginpage(step):
-   world.driver.get(predifined['login_url'])
+    world.driver.get(predifined['login_url'])
 
 
 @step(u'And I fill in the credentials fields "([^"]*)" "([^"]*)"')
@@ -59,7 +59,7 @@ def input_user(step, id1,id2):
     el = world.driver.find_element_by_id(id1)
     el.send_keys(predifined[id1])
     el = world.driver.find_element_by_id(id2)
-    el.send_keys(predifined[id2])	
+    el.send_keys(predifined[id2])
 
 
 @step(u'And I submit')
@@ -67,16 +67,16 @@ def submit_pass(step):
     button = world.driver.find_element_by_class_name("btn-red")
     button.click()
     world.driver.execute_script('window.focus();')
-    # wait for the magic login cookie    
+    # wait for the magic login cookie
     time.sleep(10)
-    
+
 
 @step(u'And I go to the check page')
 def submit_pass(step):
     world.driver.get(predifined['check_url'])
     world.driver.execute_script('window.focus();')
     # wait for all to load
-    time.sleep(10)       
+    time.sleep(10)
 
 
 @step(u'And I insert the fps javascript')
@@ -93,19 +93,19 @@ def javascript_insert_pass(step):
             .replace('\t','').replace("\n", "").replace('"','\\"'))
     #logging.info("javascript = "+javascript)
     world.driver.execute_script(javascript)
-    
+
 
 @step(u'And I scroll (\d+) times to ensure data is loaded')
 def scroll(step, times):
     #perform initial scrolling
     for x in range(0, int(times)):
-        for div in range (0,predifined['number_of_widgets']):                
+        for div in range (0,predifined['number_of_widgets']):
             world.driver.execute_script('document.getElementsByClassName\
                 ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
                 [0].getElementsByTagName("ul")[0].scrollTop = %d ' % (div,x * predifined['scroll_step']))
             logging.info("scrolling widget: %d for %d time" % (div,x))
-    
-    elems = []    
+
+    elems = []
     #insert id on each element for easy retrieval
     for div in range (0,predifined['number_of_widgets']):
         elems.append(world.driver.execute_script('return document.\
@@ -120,7 +120,7 @@ def scroll(step, times):
                 ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
                 [0].getElementsByTagName("ul")[0].children[%d].id = "ul_scroll_%d_%d"' % (div,li,div,li))
         logging.info("number of elements in widget[%d]: %d" % (div,elems[div]))
-    
+
     #extract the elements we need to hover over
     li_hover = []
     for div in range (0,predifined['number_of_widgets']):
@@ -131,7 +131,7 @@ def scroll(step, times):
             li_hover[div].append(element_to_hover_over)
     world.elems = elems
     world.li_hover = li_hover
-    
+
 
 @step(u'And I scroll again to extract the fps values')
 def fps_values(step):
@@ -144,7 +144,7 @@ def fps_values(step):
         for li in range(0, elems[div]-1):
             ActionChains(world.driver).move_to_element(li_hover[div][li]).perform()
             # add a minimum sleep give time to perform
-            # here is a trial mimic of a normal user which actualy has 
+            # here is a trial mimic of a normal user which actualy has
             # a small pause between scrols
             sleep += 1
             if sleep % 3 == 1:
@@ -154,16 +154,16 @@ def fps_values(step):
                     [0].getElementsByTagName("ul")[0].scrollTop = document.getElementsByClassName\
                     ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
                     [0].getElementsByTagName("ul")[0].scrollTop + 20 ' % (div, div))
-    #read the fps values    
+    #read the fps values
     world.fps_values = world.driver.execute_script("return fps_arr")
 
 
 @step(u'Then the avarage fps valus should be over (\d+)')
 def avarage_lookup(step,avg):
-    mean = numpy.mean(world.fps_values)    
-    std = numpy.std(world.fps_values)   
+    mean = numpy.mean(world.fps_values)
+    std = numpy.std(world.fps_values)
     # std could be check to ensure we don't have a large spread data
-    # but Firefox has a much larger value the Chrome for std 
+    # but Firefox has a much larger value the Chrome for std
     logging.info("numpy mean: %s ,std: %s" % (mean,std))
     logging.info("values are: %s " % (world.fps_values))
     world.driver.close()
