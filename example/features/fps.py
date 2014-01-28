@@ -15,8 +15,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 import logging
 import numpy
-from perf_util import /Users/liviu/ubervu/fps-automated-test
-predefined
+from perf_util import predefined
 from selenium.webdriver.chrome.options import Options
 
 
@@ -31,8 +30,7 @@ def parse_params_of_argv(step, browser):
     #add here any other setup you want
     if (browser.lower() == "chrome"):
         logging.info("Start new test with Chrome")
-        chromedriver = /Users/liviu/ubervu/fps-automated-test
-predefined['chromedriver']
+        chromedriver = predefined['chromedriver']
         options = webdriver.ChromeOptions()
         options.add_argument('--start-maximized')
         # next line it can be used together with setting the javascript
@@ -53,8 +51,7 @@ predefined['chromedriver']
 
 @step(u'When I go to the check page')
 def submit_pass(step):
-    world.driver.get(/Users/liviu/ubervu/fps-automated-test
-predefined['check_url'])
+    world.driver.get(predefined['check_url'])
     world.driver.execute_script('window.focus();')
     # wait for all to load
     time.sleep(10)
@@ -63,8 +60,7 @@ predefined['check_url'])
 @step(u'And I insert the fps javascript')
 def javascript_insert_pass(step):
     # insert the magic javascript
-    with open(/Users/liviu/ubervu/fps-automated-test
-predefined['local_javascript_url']) as f:
+    with open(predefined['local_javascript_url']) as f:
         content = f.readlines()
     js = "".join(content)
     javascript = "\
@@ -81,17 +77,14 @@ predefined['local_javascript_url']) as f:
 def scroll(step, times):
     #perform initial scrolling
     for x in range(0, int(times)):
-        for div in range (0,/Users/liviu/ubervu/fps-automated-test
-predefined['number_of_widgets']):
-            world.driver.execute_script('window.scroll(0, %d)' % (x * /Users/liviu/ubervu/fps-automated-test
-predefined['scroll_step']))
+        for div in range (0,predefined['number_of_widgets']):
+            world.driver.execute_script('window.scroll(0, %d)' % (x * predefined['scroll_step']))
             logging.info("scrolling widget: %d for %d time" % (div, x))
             time.sleep(0.01)
 
     elems = []
     #insert id on each element for easy retrieval
-    for div in range (0,/Users/liviu/ubervu/fps-automated-test
-predefined['number_of_widgets']):
+    for div in range (0,predefined['number_of_widgets']):
         elems.append(world.driver.execute_script('return document.\
             getElementById("stream-items-id").\
             children.length'))
@@ -103,8 +96,7 @@ predefined['number_of_widgets']):
     #extract the elements we need to hover over
     li_hover = []
     heights = []
-    for div in range (0,/Users/liviu/ubervu/fps-automated-test
-predefined['number_of_widgets']):
+    for div in range (0,predefined['number_of_widgets']):
         li_hover.append([])
         heights.append([])
         for li in range(0, elems[div]):
@@ -124,8 +116,7 @@ def fps_values(step):
     sleep = 0
     #start logging the fps values
     world.driver.execute_script('insertIntoFpsArr = true');
-    for div in range (0,/Users/liviu/ubervu/fps-automated-test
-predefined['number_of_widgets']):
+    for div in range (0,predefined['number_of_widgets']):
         # we will split by 4 as the tweets are usualy small so a scroll it will
         # move more tweets in one move
         for li in range(0, elems[div]-1):
