@@ -1,25 +1,34 @@
-predifined = {}
+/Users/liviu/ubervu/fps-automated-test
+predefined = {}
 #we test the page without the log in
-predifined['id_username'] = ""
-predifined['id_password'] = ""
+/Users/liviu/ubervu/fps-automated-test
+predefined['id_username'] = ""
+/Users/liviu/ubervu/fps-automated-test
+predefined['id_password'] = ""
 # define the login page
-predifined['login_url'] = ""
+/Users/liviu/ubervu/fps-automated-test
+predefined['login_url'] = ""
 
 # define local javascript for loading the file from local
-predifined['local_javascript_url'] = "javascript/local_perf.js"
+/Users/liviu/ubervu/fps-automated-test
+predefined['local_javascript_url'] = "javascript/local_perf.js"
 
 
 
 # define the check page
-predifined['check_url'] = "https://twitter.com/google"
+/Users/liviu/ubervu/fps-automated-test
+predefined['check_url'] = "https://twitter.com/google"
 
 #define how many widgets you wish to scroll
-predifined['number_of_widgets'] = 1
+/Users/liviu/ubervu/fps-automated-test
+predefined['number_of_widgets'] = 1
 
 #define the step you wish to perform the initial scroll
-predifined['scroll_step'] = 162 # this is the number of px
+/Users/liviu/ubervu/fps-automated-test
+predefined['scroll_step'] = 162 # this is the number of px
 
 #we will use firfox
-predifined['chromedriver'] = ""
+/Users/liviu/ubervu/fps-automated-test
+predefined['chromedriver'] = ""
 
 # TODO create remote javascript

@@ -15,7 +15,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 import logging
 import numpy
-from perf_util import predifined
+from perf_util import /Users/liviu/ubervu/fps-automated-test
+predefined
 from selenium.webdriver.chrome.options import Options
 
 
@@ -30,7 +31,8 @@ def parse_params_of_argv(step, browser):
     #add here any other setup you want
     if (browser.lower() == "chrome"):
         logging.info("Start new test with Chrome")
-        chromedriver = predifined['chromedriver']
+        chromedriver = /Users/liviu/ubervu/fps-automated-test
+predefined['chromedriver']
         options = webdriver.ChromeOptions()
         options.add_argument('--start-maximized')
         # next line it can be used together with setting the javascript
@@ -50,16 +52,19 @@ def parse_params_of_argv(step, browser):
 
 @step(u'When I go to login page')
 def given_i_go_to_loginpage(step):
-    world.driver.get(predifined['login_url'])
+    world.driver.get(/Users/liviu/ubervu/fps-automated-test
+predefined['login_url'])
 
 
 @step(u'And I fill in the credentials fields "([^"]*)" "([^"]*)"')
 def input_user(step, id1,id2):
     world.driver.execute_script('console.timeline()')
     el = world.driver.find_element_by_id(id1)
-    el.send_keys(predifined[id1])
+    el.send_keys(/Users/liviu/ubervu/fps-automated-test
+predefined[id1])
     el = world.driver.find_element_by_id(id2)
-    el.send_keys(predifined[id2])
+    el.send_keys(/Users/liviu/ubervu/fps-automated-test
+predefined[id2])
 
 
 @step(u'And I submit')
@@ -73,7 +78,8 @@ def submit_pass(step):
 
 @step(u'And I go to the check page')
 def submit_pass(step):
-    world.driver.get(predifined['check_url'])
+    world.driver.get(/Users/liviu/ubervu/fps-automated-test
+predefined['check_url'])
     world.driver.execute_script('window.focus();')
     # wait for all to load
     time.sleep(10)
@@ -82,7 +88,8 @@ def submit_pass(step):
 @step(u'And I insert the fps javascript')
 def javascript_insert_pass(step):
     # insert the magic javascript
-    with open(predifined['local_javascript_url']) as f:
+    with open(/Users/liviu/ubervu/fps-automated-test
+predefined['local_javascript_url']) as f:
         content = f.readlines()
     js = "".join(content)
     javascript = "\
@@ -99,15 +106,18 @@ def javascript_insert_pass(step):
 def scroll(step, times):
     #perform initial scrolling
     for x in range(0, int(times)):
-        for div in range (0,predifined['number_of_widgets']):
+        for div in range (0,/Users/liviu/ubervu/fps-automated-test
+predefined['number_of_widgets']):
             world.driver.execute_script('document.getElementsByClassName\
                 ("mention-container-wrapper")[%d].getElementsByClassName("mentions")\
-                [0].getElementsByTagName("ul")[0].scrollTop = %d ' % (div,x * predifined['scroll_step']))
+                [0].getElementsByTagName("ul")[0].scrollTop = %d ' % (div,x * /Users/liviu/ubervu/fps-automated-test
+predefined['scroll_step']))
             logging.info("scrolling widget: %d for %d time" % (div,x))
 
     elems = []
     #insert id on each element for easy retrieval
-    for div in range (0,predifined['number_of_widgets']):
+    for div in range (0,/Users/liviu/ubervu/fps-automated-test
+predefined['number_of_widgets']):
         elems.append(world.driver.execute_script('return document.\
             getElementsByClassName("mention-container-wrapper")[%d].\
             getElementsByClassName("mentions")[0].getElementsByTagName("ul")[0].\
@@ -123,7 +133,8 @@ def scroll(step, times):
 
     #extract the elements we need to hover over
     li_hover = []
-    for div in range (0,predifined['number_of_widgets']):
+    for div in range (0,/Users/liviu/ubervu/fps-automated-test
+predefined['number_of_widgets']):
         element_to_hover_over = world.driver.find_element_by_id("ul_scroll_%d" % (div))
         li_hover.append([])
         for li in range(0, elems[div]):
@@ -140,7 +151,8 @@ def fps_values(step):
     sleep = 0
     #start logging the fps values
     world.driver.execute_script('insertIntoFpsArr = true');
-    for div in range (0,predifined['number_of_widgets']):
+    for div in range (0,/Users/liviu/ubervu/fps-automated-test
+predefined['number_of_widgets']):
         for li in range(0, elems[div]-1):
             ActionChains(world.driver).move_to_element(li_hover[div][li]).perform()
             # add a minimum sleep give time to perform
