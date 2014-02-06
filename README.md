@@ -20,6 +20,11 @@ The code does not give any guaranty of your actual performance, it just gives a 
 
 Requirements:
 ===
+
+```bash
+pip install -r requirements.txt
+```
+
 * python
 * selenium
 * lettuce
