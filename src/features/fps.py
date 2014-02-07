@@ -25,7 +25,7 @@ def setup_():
     logging.basicConfig(filename='perf.log',level=logging.INFO)
 
 
-@step(u'Given I have initial setup: ([^"]*)')
+@step(u'I have initial setup: ([^"]*)')
 def parse_params_of_argv(step, browser):
     #add here any other setup you want
     if (browser.lower() == "chrome"):
@@ -48,12 +48,12 @@ def parse_params_of_argv(step, browser):
        logging.info("Unsupported browser: %s" % (browser))
        raise Exception("Unsupported browser: %s" % (browser))
 
-@step(u'When I go to login page')
+@step(u'I go to login page')
 def given_i_go_to_loginpage(step):
     world.driver.get(predefined['login_url'])
 
 
-@step(u'And I fill in the credentials fields "([^"]*)" "([^"]*)"')
+@step(u'I fill in the credentials fields "([^"]*)" "([^"]*)"')
 def input_user(step, id1,id2):
     world.driver.execute_script('console.timeline()')
     el = world.driver.find_element_by_id(id1)
@@ -62,7 +62,7 @@ def input_user(step, id1,id2):
     el.send_keys(predefined[id2])
 
 
-@step(u'And I submit')
+@step(u'I submit')
 def submit_pass(step):
     button = world.driver.find_element_by_class_name("btn-red")
     button.click()
@@ -71,7 +71,7 @@ def submit_pass(step):
     time.sleep(10)
 
 
-@step(u'And I go to the check page')
+@step(u'I go to the check page')
 def submit_pass(step):
     world.driver.get(predefined['check_url'])
     world.driver.execute_script('window.focus();')
@@ -79,7 +79,7 @@ def submit_pass(step):
     time.sleep(10)
 
 
-@step(u'And I insert the fps javascript')
+@step(u'I insert the fps javascript')
 def javascript_insert_pass(step):
     # insert the magic javascript
     with open(predefined['local_javascript_url']) as f:
@@ -95,7 +95,7 @@ def javascript_insert_pass(step):
     world.driver.execute_script(javascript)
 
 
-@step(u'And I scroll (\d+) times to ensure data is loaded')
+@step(u'I scroll (\d+) times to ensure data is loaded')
 def scroll(step, times):
     #perform initial scrolling
     for x in range(0, int(times)):
@@ -133,7 +133,7 @@ def scroll(step, times):
     world.li_hover = li_hover
 
 
-@step(u'And I scroll again to extract the fps values')
+@step(u'I scroll again to extract the fps values')
 def fps_values(step):
     elems = world.elems
     li_hover = world.li_hover
@@ -158,7 +158,7 @@ def fps_values(step):
     world.fps_values = world.driver.execute_script("return fps_arr")
 
 
-@step(u'Then the avarage fps valus should be over (\d+)')
+@step(u'the avarage fps valus should be over (\d+)')
 def avarage_lookup(step,avg):
     mean = numpy.mean(world.fps_values)
     std = numpy.std(world.fps_values)
